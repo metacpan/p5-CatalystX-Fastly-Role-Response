@@ -1,5 +1,6 @@
 package CatalystX::Fastly::Role::Response;
-use Moose::Role;
+use Moo::Role;
+use Types::Standard qw(Maybe ArrayRef Str Bool assert_Str);
 use Carp;
 
 our $VERSION = '0.08';
@@ -114,7 +115,7 @@ C<Cache-Control> headers value >> (as set by L</browser_max_age>).
 
 has cdn_max_age => (
     is  => 'rw',
-    isa => 'Maybe[Str]',
+    isa => Maybe[Str],
 );
 
 =head2 cdn_stale_while_revalidate
@@ -129,7 +130,7 @@ it is revalidating in the background.
 
 has cdn_stale_while_revalidate => (
     is  => 'rw',
-    isa => 'Maybe[Str]',
+    isa => Maybe[Str],
 );
 
 =head2 cdn_stale_if_error
@@ -144,7 +145,7 @@ if there is an error at the origin.
 
 has cdn_stale_if_error => (
     is  => 'rw',
-    isa => 'Maybe[Str]',
+    isa => Maybe[Str],
 );
 
 =head2 cdn_never_cache
@@ -160,7 +161,7 @@ options have been set.
 
 has cdn_never_cache => (
     is      => 'rw',
-    isa     => 'Bool',
+    isa     => Bool,
     default => sub {0},
 );
 
@@ -178,7 +179,7 @@ no C<Surrogate-Control> (as set by L</cdn_max_age>)>. >>
 
 has browser_max_age => (
     is  => 'rw',
-    isa => 'Maybe[Str]',
+    isa => Maybe[Str],
 );
 
 =head2 browser_stale_while_revalidate
@@ -193,7 +194,7 @@ it is revalidating from the CDN.
 
 has browser_stale_while_revalidate => (
     is  => 'rw',
-    isa => 'Maybe[Str]',
+    isa => Maybe[Str],
 );
 
 =head2 browser_stale_if_error
@@ -208,7 +209,7 @@ if there is an error at the CDN.
 
 has browser_stale_if_error => (
     is  => 'rw',
-    isa => 'Maybe[Str]',
+    isa => Maybe[Str],
 );
 
 =head2 browser_never_cache
@@ -235,7 +236,7 @@ this is left for you to implement.
 
 has browser_never_cache => (
     is      => 'rw',
-    isa     => 'Bool',
+    isa     => Bool,
     default => sub {0},
 );
 
@@ -254,17 +255,31 @@ interested in purging these keys!
 =cut
 
 has _surrogate_keys => (
-    traits  => ['Array'],
     is      => 'ro',
-    isa     => 'ArrayRef[Str]',
+    isa     => ArrayRef[Str],
     default => sub { [] },
-    handles => {
-        add_surrogate_key   => 'push',
-        has_surrogate_keys  => 'count',
-        surrogate_keys      => 'elements',
-        join_surrogate_keys => 'join',
-    },
 );
+
+sub add_surrogate_key {
+    my $self = shift;
+    push @{$self->_surrogate_keys}, map assert_Str($_), @_;
+}
+
+sub has_surrogate_keys {
+    my $self = shift;
+    scalar @{$self->_surrogate_keys};
+}
+
+sub surrogate_keys {
+    my $self = shift;
+    @{$self->_surrogate_keys};
+}
+
+sub join_surrogate_keys {
+    my $self = shift;
+    my $join_str = shift;
+    join $join_str, @{$self->_surrogate_keys};
+}
 
 =head1 INTERNAL METHODS
 

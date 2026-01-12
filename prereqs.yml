@@ -1,7 +1,8 @@
 runtime:
   requires:
     perl: 5.008005
-    Moose::Role: 2.2200
+    Moo::Role: 2.2200
+    Types::Standard: 0
 test:
   requires:
     Catalyst::Controller: 0
