@@ -1,7 +1,7 @@
 runtime:
   requires:
     perl: 5.008005
-    Moo::Role: 2.2200
+    Moo::Role: 2.0
     Types::Standard: 0
 test:
   requires:
