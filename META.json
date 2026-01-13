@@ -4,7 +4,7 @@
       "Leo Lapworth"
    ],
    "dynamic_config" : 0,
-   "generated_by" : "Dist::Zilla version 6.032, CPAN::Meta::Converter version 2.150010",
+   "generated_by" : "Dist::Zilla version 6.036, CPAN::Meta::Converter version 2.150010",
    "license" : [
       "perl_5"
    ],
@@ -31,15 +31,16 @@
             "Test::NoTabs" : "0",
             "Test::Perl::Critic" : "0",
             "Test::Pod" : "1.41",
-            "Test::Pod::Coverage::TrustMe" : "0",
+            "Test::Pod::Coverage::TrustMe" : "0.002001",
             "Test::Portability::Files" : "0",
-            "Test::Spelling" : "0.12",
+            "Test::Spelling" : "0.17",
             "Test::Version" : "1"
          }
       },
       "runtime" : {
          "requires" : {
-            "Moose::Role" : "2.2200",
+            "Moo::Role" : "2.0",
+            "Types::Standard" : "0",
             "perl" : "5.008005"
          }
       },
@@ -63,7 +64,7 @@
    "provides" : {
       "CatalystX::Fastly::Role::Response" : {
          "file" : "lib/CatalystX/Fastly/Role/Response.pm",
-         "version" : "0.07"
+         "version" : "0.08"
       }
    },
    "release_status" : "stable",
@@ -77,13 +78,13 @@
          "web" : "https://github.com/metacpan/p5-CatalystX-Fastly-Role-Response"
       }
    },
-   "version" : "0.07",
+   "version" : "0.08",
    "x_contributors" : [
       "Graham Knop <haarg@haarg.org>",
       "Leo Lapworth <leo@cuckoo.org>"
    ],
-   "x_generated_by_perl" : "v5.38.2",
-   "x_serialization_backend" : "Cpanel::JSON::XS version 4.37",
+   "x_generated_by_perl" : "v5.40.0",
+   "x_serialization_backend" : "Cpanel::JSON::XS version 4.40",
    "x_spdx_expression" : "Artistic-1.0-Perl OR GPL-1.0-or-later",
    "x_static_install" : 1,
    "x_use_unsafe_inc" : 0
